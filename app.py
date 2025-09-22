@@ -1,33 +1,13 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-import os
 
-# --- Custom CSS for top-right corner text ---
-st.markdown(
-    """
-    <style>
-    .top-right {
-        position: absolute;
-        top: 10px;
-        right: 20px;
-        font-size: 14px;
-        font-weight: bold;
-        color: #4CAF50;
-    }
-    </style>
-    <div class="top-right">Developed by Triava</div>
-    """,
-    unsafe_allow_html=True
-)
-
-FILE_PATH = "pyth.xlsx"
-
-# Load Excel template
-if os.path.exists(FILE_PATH):
-    df = pd.read_excel(FILE_PATH)
+# Upload Excel template
+uploaded_file = st.file_uploader("Upload template Excel file", type=["xlsx"])
+if uploaded_file is not None:
+    df = pd.read_excel(uploaded_file)
 else:
-    st.error("Template file 'pyth.xlsx' not found!")
+    st.warning("⚠️ Please upload an Excel file to continue.")
     st.stop()
 
 # First column is fixed parameters
@@ -57,8 +37,9 @@ edited = st.data_editor(edit_df, use_container_width=True)
 if st.button("Save Data"):
     # Update only today’s column in original df
     df[new_col_name] = edited[new_col_name].values
-    df.to_excel(FILE_PATH, index=False)
-    st.success(f"✅ Data saved successfully for {new_col_name}!")
+    # Save updated Excel back to user
+    df.to_excel("updated_file.xlsx", index=False)
+    st.success(f" Data saved successfully for {new_col_name}! (download updated_file.xlsx)")
 
 # Show the full dataset
 st.write("### Full Data (All Days)")
