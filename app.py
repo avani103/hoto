@@ -3,6 +3,24 @@ import pandas as pd
 from datetime import datetime
 import os
 
+# --- Custom CSS for top-right corner text ---
+st.markdown(
+    """
+    <style>
+    .top-right {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #4CAF50;
+    }
+    </style>
+    <div class="top-right">Developed by Triava</div>
+    """,
+    unsafe_allow_html=True
+)
+
 FILE_PATH = r"C:\Users\Avani\Desktop\stream\pyth.xlsx"
 
 # Load Excel template
