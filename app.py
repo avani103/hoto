@@ -21,7 +21,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-FILE_PATH = r"C:\Users\Avani\Desktop\stream\pyth.xlsx"
+FILE_PATH = "pyth.xlsx"
 
 # Load Excel template
 if os.path.exists(FILE_PATH):
